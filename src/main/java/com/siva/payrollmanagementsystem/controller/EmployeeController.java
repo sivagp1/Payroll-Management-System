@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.siva.payrollmanagementsystem.dto.EmployeesResponse;
 import com.siva.payrollmanagementsystem.dto.IncrementRequest;
 import com.siva.payrollmanagementsystem.dto.IncrementResponse;
 import com.siva.payrollmanagementsystem.entity.Employee;
@@ -33,15 +34,10 @@ public class EmployeeController {
 	EmployeeService employeeService;
 	
 	@GetMapping("/fetchAll")
-	public ResponseEntity<List<Employee>> getEmployee()	{
+	public ResponseEntity<List<EmployeesResponse>> getEmployee()	{
 		
-		List<Employee> employees = employeeRepository.findAll();
-		if(!employees.isEmpty()) {
-			return ResponseEntity.ok(employees);
-		}
-		else	{
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		}
+		List<EmployeesResponse> employees = employeeService.getAllEmployees();
+		return ResponseEntity.ok(employees);
 
 	}
 	

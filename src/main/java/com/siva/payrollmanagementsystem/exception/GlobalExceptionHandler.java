@@ -20,5 +20,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorResponse(false, ex.getMessage()));
     }
+    
+    @ExceptionHandler(NoDataFoundException.class)
+    public ResponseEntity<?> handleNoDataFoundException(NoDataFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse(false, ex.getMessage()));
+    }
 
 }
