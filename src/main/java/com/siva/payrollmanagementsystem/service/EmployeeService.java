@@ -9,11 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.siva.payrollmanagementsystem.dto.EmployeesResponse;
 import com.siva.payrollmanagementsystem.dto.IncrementRequest;
-import com.siva.payrollmanagementsystem.dto.LeaveTypeResponse;
 import com.siva.payrollmanagementsystem.entity.Employee;
-import com.siva.payrollmanagementsystem.entity.LeaveType;
-import com.siva.payrollmanagementsystem.exception.EmployeeNotFoundException;
-import com.siva.payrollmanagementsystem.exception.InvalidIncrementPercentageException;
+import com.siva.payrollmanagementsystem.exception.BadRequestException;
 import com.siva.payrollmanagementsystem.exception.NoDataFoundException;
 import com.siva.payrollmanagementsystem.repository.EmployeeRepository;
 
@@ -47,11 +44,11 @@ public class EmployeeService {
     @Transactional
     public Employee incrementEmployeeSalary(Long employeeId, IncrementRequest request) {
         Employee employee = employeeRepository.findById(employeeId).orElseThrow(() ->
-            new EmployeeNotFoundException("Employee not found with id: " + employeeId));
+            new NoDataFoundException("Employee not found with id: " + employeeId));
 
         double incrementPercentage = request.getIncrementPercentage();
         if (incrementPercentage > 10.0) {
-            throw new InvalidIncrementPercentageException("Invalid increment percentage. Increment should be <= 10%.");
+            throw new BadRequestException("Invalid increment percentage. Increment should be <= 10%.");
         }
         
         double currentSalary = employee.getBasicSalary();

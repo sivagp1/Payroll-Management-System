@@ -1,9 +1,11 @@
 package com.siva.payrollmanagementsystem.exception;
 
-public class EmployeeNotFoundException extends RuntimeException {
+public class BadRequestException extends RuntimeException {
+	
     private static final long serialVersionUID = 1L;
 
-	public EmployeeNotFoundException(String message) {
+	public BadRequestException(String message) {
         super(message);
     }
 }
+

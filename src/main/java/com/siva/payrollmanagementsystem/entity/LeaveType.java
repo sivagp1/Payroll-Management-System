@@ -11,7 +11,7 @@ public class LeaveType {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long leaveTypeId;
-    private String leaveType;
+    private String type;
     private int entitlementPerYear;
 	
 	public Long getLeaveTypeId() {
@@ -20,12 +20,14 @@ public class LeaveType {
 	public void setLeaveTypeId(Long leaveTypeId) {
 		this.leaveTypeId = leaveTypeId;
 	}
-	public String getLeaveType() {
-		return leaveType;
+
+	public String getType() {
+		return type;
 	}
-	public void setLeaveType(String leaveType) {
-		this.leaveType = leaveType;
+	public void setType(String type) {
+		this.type = type;
 	}
+	
 	public int getEntitlementPerYear() {
 		return entitlementPerYear;
 	}

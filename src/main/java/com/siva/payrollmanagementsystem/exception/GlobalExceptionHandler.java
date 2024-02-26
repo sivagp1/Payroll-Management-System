@@ -9,14 +9,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 
-    @ExceptionHandler(EmployeeNotFoundException.class)
-    public ResponseEntity<?> handleEmployeeNotFoundException(EmployeeNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ErrorResponse(false, ex.getMessage()));
-    }
-
-    @ExceptionHandler(InvalidIncrementPercentageException.class)
-    public ResponseEntity<?> handleInvalidIncrementPercentageException(InvalidIncrementPercentageException ex) {
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<?> handleInvalidIncrementPercentageException(BadRequestException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorResponse(false, ex.getMessage()));
     }

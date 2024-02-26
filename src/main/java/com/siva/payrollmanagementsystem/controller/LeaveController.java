@@ -5,9 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.siva.payrollmanagementsystem.dto.EmployeeLeavesResponse;
+import com.siva.payrollmanagementsystem.dto.LeaveApplicationRequest;
+import com.siva.payrollmanagementsystem.dto.LeaveApplicationResponse;
 import com.siva.payrollmanagementsystem.dto.LeaveTypeResponse;
 import com.siva.payrollmanagementsystem.service.LeaveService;
 
@@ -23,6 +29,25 @@ public class LeaveController {
      
         List<LeaveTypeResponse> leaveTypes = leaveService.getAllLeaveTypes();
         return ResponseEntity.ok(leaveTypes);
+        
+    }
+    
+    
+    @PostMapping("/add/{employeeId}/{leaveTypeId}")
+    public ResponseEntity<?> applyForLeave(@PathVariable Long employeeId,
+                                           @PathVariable Long leaveTypeId,
+                                           @RequestBody LeaveApplicationRequest request) {
+    	
+            LeaveApplicationResponse response = leaveService.applyForLeave(employeeId, leaveTypeId, request);
+            return ResponseEntity.ok(response);
+        
+    }
+    
+    @GetMapping("/employee/{employeeId}")
+    public ResponseEntity<?> fetchLeaves(@PathVariable Long employeeId) {
+    	
+    	EmployeeLeavesResponse response = leaveService.fetchLeaves(employeeId);
+            return ResponseEntity.ok(response);
         
     }
 }
