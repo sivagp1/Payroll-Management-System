@@ -2,6 +2,8 @@ package com.siva.payrollmanagementsystem.dto;
 
 import java.util.List;
 
+import com.siva.payrollmanagementsystem.entity.Employee;
+
 public class EmployeeLeavesResponse {
 
 	private Long id;
@@ -10,6 +12,15 @@ public class EmployeeLeavesResponse {
     private double basicSalary;
     private double hra;
     private List<LeaveResponse> leaves;
+    
+    public EmployeeLeavesResponse(Employee employee, List<LeaveResponse> leaves)	{
+    	this.id = employee.getId();
+    	this.name = employee.getName();
+    	this.contact = employee.getContact();
+    	this.basicSalary = employee.getBasicSalary();
+    	this.hra = employee.getHra();
+    	this.leaves = leaves;
+    }
     
 	public Long getId() {
 		return id;
