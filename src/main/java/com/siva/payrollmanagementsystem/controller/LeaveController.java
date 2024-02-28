@@ -17,6 +17,7 @@ import com.siva.payrollmanagementsystem.dto.FetchAllLeavesResponse;
 import com.siva.payrollmanagementsystem.dto.LeaveApplicationRequest;
 import com.siva.payrollmanagementsystem.dto.LeaveApplicationResponse;
 import com.siva.payrollmanagementsystem.dto.LeaveTypeResponse;
+import com.siva.payrollmanagementsystem.dto.UpdateLeaveRequest;
 import com.siva.payrollmanagementsystem.exception.SuccessResponse;
 import com.siva.payrollmanagementsystem.service.LeaveService;
 
@@ -31,8 +32,7 @@ public class LeaveController {
     public ResponseEntity<List<LeaveTypeResponse>> getAllLeaveTypes() {
      
         List<LeaveTypeResponse> leaveTypes = leaveService.getAllLeaveTypes();
-        return ResponseEntity.ok(leaveTypes);
-        
+        return ResponseEntity.ok(leaveTypes);   
     }
     
     
@@ -42,17 +42,17 @@ public class LeaveController {
                                            @RequestBody LeaveApplicationRequest request) {
     	
             LeaveApplicationResponse response = leaveService.applyForLeave(employeeId, leaveTypeId, request);
-            return ResponseEntity.ok(response);
-        
+            return ResponseEntity.ok(response);   
     }
+    
     
     @GetMapping("/employee/{employeeId}")
     public ResponseEntity<?> fetchLeavesByEmployeeId(@PathVariable Long employeeId) {
     	
     	EmployeeLeavesResponse response = leaveService.fetchLeavesByEmployeeId(employeeId);
-            return ResponseEntity.ok(response);
-        
+            return ResponseEntity.ok(response);        
     }
+    
     
     @GetMapping("/fetchAll")
     public ResponseEntity<?> fetchAllLeaves()	{
@@ -60,6 +60,15 @@ public class LeaveController {
     	List<FetchAllLeavesResponse> response = leaveService.getAllLeaves();
     	return ResponseEntity.ok(response);
     }
+    
+    
+    @PostMapping("/update/{leaveId}/{leaveTypeId}")
+    public ResponseEntity<?> updateLeave(@PathVariable Long leaveId, @PathVariable Long leaveTypeId, @RequestBody UpdateLeaveRequest request) {
+    	
+    	FetchAllLeavesResponse response = leaveService.updateLeave(leaveId, leaveTypeId, request);
+        return ResponseEntity.ok(response);
+    }
+    
     
     @DeleteMapping("/delete/{leaveId}")
     public ResponseEntity<?> deleteLeave(@PathVariable Long leaveId) {
